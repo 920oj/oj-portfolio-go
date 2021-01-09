@@ -9,8 +9,10 @@ import (
 	"os"
 	"text/template"
 
-	Copy "github.com/otiai10/copy"
 	"github.com/russross/blackfriday/v2"
+	"github.com/tdewolff/minify/v2"
+	"github.com/tdewolff/minify/v2/css"
+	"github.com/tdewolff/minify/v2/html"
 )
 
 // InputData 入力データ
@@ -24,6 +26,7 @@ type InputData struct {
 	ProfileURL string `json:"profile_url"`
 	LogoURL    string `json:"logo_url"`
 	HTML       string
+	CSS        string
 }
 
 func main() {
@@ -38,6 +41,13 @@ func main() {
 		return
 	}
 
+	// 埋め込むCSSファイル読み込み
+	style, err := ioutil.ReadFile("./templates/style.css")
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		return
+	}
+
 	// 設定ファイル読み込み
 	conf, err := ioutil.ReadFile("./conf/conf.json")
 	if err != nil {
@@ -47,23 +57,34 @@ func main() {
 
 	// MarkdownをHTML化
 	exts := blackfriday.Autolink // リンクを自動でaタグにする
-	// exts |= blackfriday.NoEmptyLineBeforeBlock //
-	// exts |= blackfriday.LaxHTMLBlocks
-	html := blackfriday.Run(md, blackfriday.WithExtensions(exts))
+	htmlData := blackfriday.Run(md, blackfriday.WithExtensions(exts))
 
 	// 設定ファイルとHTML化したMarkdownを一つの構造体に移す
 	data := new(InputData)
 	err = json.Unmarshal([]byte(conf), data)
-	data.HTML = string(html)
+	data.HTML = string(htmlData)
+	data.CSS = string(style)
 
 	// 書き出し準備
-	buff := new(bytes.Buffer)
-	fw := io.Writer(buff)
+	templateBuff := new(bytes.Buffer)
+	templateFw := io.Writer(templateBuff)
 
 	// テンプレートファイルを読み込んで変換する
 	t := template.Must(template.ParseFiles("./templates/index.html.tql"))
-	if err := t.ExecuteTemplate(fw, "index.html.tql", data); err != nil {
+	if err := t.ExecuteTemplate(templateFw, "index.html.tql", data); err != nil {
 		fmt.Fprintln(os.Stderr, err)
+	}
+
+	// HTMLをminifyする
+	m := minify.New()
+	m.AddFunc("text/css", css.Minify)
+	m.AddFunc("text/html", html.Minify)
+	r := io.Reader(templateBuff)
+	outputBuff := new(bytes.Buffer)
+	outputFw := io.Writer(outputBuff)
+	if err = m.Minify("text/html", outputFw, r); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		return
 	}
 
 	// distフォルダが無ければ作成
@@ -72,14 +93,7 @@ func main() {
 	}
 
 	// ファイル書き込み
-	err = writeBytes("./dist/index.html", buff.Bytes())
-	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		return
-	}
-
-	// public配下のファイルをdistにコピーする
-	err = Copy.Copy("./public", "./dist")
+	err = writeBytes("./dist/index.html", outputBuff.Bytes())
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		return
