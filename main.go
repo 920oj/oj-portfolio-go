@@ -59,6 +59,11 @@ func main() {
 		fmt.Fprintln(os.Stderr, err)
 	}
 
+	// ./dist フォルダが無ければ作成
+	if _, err := os.Stat("./dist"); os.IsNotExist(err) {
+		os.Mkdir("./dist", 0777)
+	}
+
 	// ファイル書き込み
 	err = writeBytes("./dist/index.html", buff.Bytes())
 	if err != nil {
