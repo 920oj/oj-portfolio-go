@@ -27,6 +27,10 @@ type InputData struct {
 }
 
 func main() {
+	// distディレクトリを削除
+	if err := os.RemoveAll("./dist"); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+	}
 	// Markdownファイル読み込み
 	md, err := ioutil.ReadFile("./contents/index.md")
 	if err != nil {
@@ -42,7 +46,10 @@ func main() {
 	}
 
 	// MarkdownをHTML化
-	html := blackfriday.Run(md, blackfriday.WithNoExtensions())
+	exts := blackfriday.Autolink // リンクを自動でaタグにする
+	// exts |= blackfriday.NoEmptyLineBeforeBlock //
+	// exts |= blackfriday.LaxHTMLBlocks
+	html := blackfriday.Run(md, blackfriday.WithExtensions(exts))
 
 	// 設定ファイルとHTML化したMarkdownを一つの構造体に移す
 	data := new(InputData)
@@ -59,7 +66,7 @@ func main() {
 		fmt.Fprintln(os.Stderr, err)
 	}
 
-	// ./dist フォルダが無ければ作成
+	// distフォルダが無ければ作成
 	if _, err := os.Stat("./dist"); os.IsNotExist(err) {
 		os.Mkdir("./dist", 0777)
 	}
@@ -71,6 +78,7 @@ func main() {
 		return
 	}
 
+	// public配下のファイルをdistにコピーする
 	err = Copy.Copy("./public", "./dist")
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
@@ -78,6 +86,7 @@ func main() {
 	}
 }
 
+// writeBytes 指定した名前と入力内容でファイルを出力する
 func writeBytes(filename string, lines []byte) error {
 	file, err := os.OpenFile(filename, os.O_CREATE, 0666)
 	if err != nil {

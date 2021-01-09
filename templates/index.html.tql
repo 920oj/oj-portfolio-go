@@ -5,12 +5,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./reset.css" />
+  <link rel="stylesheet" href="./style.css" />
   <title>OJ Portfolio</title>
 </head>
 
 <body>
   <header>
-    <img src="{{ .LogoURL }}" alt="logo">
+    <img class="header-logo" src="{{ .LogoURL }}" alt="logo">
   </header>
   <main>
     <div class="introduction">
@@ -18,8 +19,9 @@
         <img src="{{ .ProfileURL }}" alt="profile">
       </div>
       <div class="profile_text">
-        <p>{{ .Name }}<br>{{ .HiraName }} / {{ .AlpName }}</p>
-        <p>{{ .School }} {{ .Department }} {{ .Grade }}年</p>
+        <p class="school">{{ .School }} {{ .Department }} {{ .Grade }}年</p>
+        <p class="name">{{ .Name }}</p>
+        <p class="alp_name">{{ .AlpName }}</p>
       </div>
     </div>
     <div class="portfolio">
