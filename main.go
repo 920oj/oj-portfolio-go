@@ -17,16 +17,21 @@ import (
 
 // InputData 入力データ
 type InputData struct {
-	Name       string `json:"name"`
-	HiraName   string `json:"hira_name"`
-	AlpName    string `json:"alp_name"`
-	School     string `json:"school"`
-	Department string `json:"department"`
-	Grade      string `json:"grade"`
-	ProfileURL string `json:"profile_url"`
-	LogoURL    string `json:"logo_url"`
-	HTML       string
-	CSS        string
+	Name            string `json:"name"`
+	HiraName        string `json:"hira_name"`
+	AlpName         string `json:"alp_name"`
+	School          string `json:"school"`
+	Department      string `json:"department"`
+	Grade           string `json:"grade"`
+	ProfileURL      string `json:"profile_url"`
+	LogoURL         string `json:"logo_url"`
+	MetaDescription string `json:"meta_description"`
+	MetaTitle       string `json:"meta_title"`
+	MetaOgpImg      string `json:"meta_ogp_img"`
+	MetaURL         string `json:"meta_url"`
+	MetaTwitter     string `json:"meta_twitter"`
+	HTML            string
+	CSS             string
 }
 
 func main() {

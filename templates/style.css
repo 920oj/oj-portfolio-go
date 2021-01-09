@@ -228,6 +228,12 @@ header > .header-logo {
   margin-bottom: 18px;
 }
 
+.portfolio > h3 {
+  font-size: 18px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
 .portfolio > p {
   font-size: 18px;
   line-height: 36px;
@@ -247,4 +253,13 @@ header > .header-logo {
 .portfolio > ul > li {
   font-size: 18px;
   line-height: 36px;
+}
+
+footer {
+  padding: 36px 0;
+}
+
+footer > p {
+  font-size: 12px;
+  text-align: center;
 }
