@@ -30,6 +30,7 @@ type InputData struct {
 	MetaOgpImg      string `json:"meta_ogp_img"`
 	MetaURL         string `json:"meta_url"`
 	MetaTwitter     string `json:"meta_twitter"`
+	GoogleAnalytics string `json:"google_analytics"`
 	HTML            string
 	CSS             string
 }
