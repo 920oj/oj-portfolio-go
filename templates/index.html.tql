@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./reset.css" />
+  <title>OJ Portfolio</title>
+</head>
+
+<body>
+  <header>
+    <img src="{{ .LogoURL }}" alt="logo">
+  </header>
+  <main>
+    <div class="introduction">
+      <div class="profile_img">
+        <img src="{{ .ProfileURL }}" alt="profile">
+      </div>
+      <div class="profile_text">
+        <p>{{ .Name }}<br>{{ .HiraName }} / {{ .AlpName }}</p>
+        <p>{{ .School }} {{ .Department }} {{ .Grade }}年</p>
+      </div>
+    </div>
+    <div class="portfolio">
+      {{ .HTML }}
+    </div>
+  </main>
+</body>
+
+</html>
