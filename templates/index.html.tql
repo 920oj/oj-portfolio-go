@@ -4,13 +4,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./reset.css" />
-  <title>OJ Portfolio</title>
+  <meta name="description" content="{{ .MetaDescription }}">
+  <meta name="og:sitename" content="{{ .MetaTitle }}">
+  <meta name="og:type" content="website">
+  <meta name="og:url" content="{{ .MetaURL }}">
+  <meta name="og:description" content="{{ .MetaDescription }}">
+  <meta name="og:image" content="{{ .MetaOgpImg }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ .MetaTitle }}">
+  <meta name="twitter:site" content="{{ .MetaTwitter }}">
+  <meta name="twitter:description" content="{{ .MetaDescription }}">
+  <style>{{ .CSS }}</style>
+  <title>{{ .MetaTitle }}</title>
 </head>
 
 <body>
   <header>
-    <img src="{{ .LogoURL }}" alt="logo">
+    <img class="header-logo" src="{{ .LogoURL }}" alt="logo">
   </header>
   <main>
     <div class="introduction">
@@ -18,14 +28,18 @@
         <img src="{{ .ProfileURL }}" alt="profile">
       </div>
       <div class="profile_text">
-        <p>{{ .Name }}<br>{{ .HiraName }} / {{ .AlpName }}</p>
-        <p>{{ .School }} {{ .Department }} {{ .Grade }}年</p>
+        <p class="school">{{ .School }} {{ .Department }} {{ .Grade }}年</p>
+        <p class="name">{{ .Name }}</p>
+        <p class="alp_name">{{ .AlpName }}</p>
       </div>
     </div>
     <div class="portfolio">
       {{ .HTML }}
     </div>
   </main>
+  <footer>
+    <p>&copy;2020 920oj.net</p>
+  </footer>
 </body>
 
 </html>

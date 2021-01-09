@@ -6,5 +6,10 @@
   "department": "メディア情報学部 社会メディア学科",
   "grade": "3",
   "profile_url": "https://res.cloudinary.com/oj920/image/upload/w_600/q_auto/v1610184430/920oj-net/profile_c9reqy.jpg",
-  "logo_url": "https://res.cloudinary.com/oj920/image/upload/v1610184429/920oj-net/logo_fd84tv.png"
+  "logo_url": "https://res.cloudinary.com/oj920/image/upload/v1610184429/920oj-net/logo_fd84tv.png",
+  "meta_description": "大岩潤矢（おーじぇい）の自己紹介サイトです。",
+  "meta_title": "920oj.net - OJの自己紹介サイト",
+  "meta_ogp_img": "https://res.cloudinary.com/oj920/image/upload/v1610216286/920oj-net/920oj-net-ogp_t7mh9r.png",
+  "meta_url": "https://920oj.net/",
+  "meta_twitter": "@920OJ"
 }
