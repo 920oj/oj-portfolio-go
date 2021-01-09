@@ -12,5 +12,5 @@
   "meta_ogp_img": "https://res.cloudinary.com/oj920/image/upload/v1610216286/920oj-net/920oj-net-ogp_t7mh9r.png",
   "meta_url": "https://920oj.net/",
   "meta_twitter": "@920OJ",
-  "google_analytics": "<!-- Global site tag (gtag.js) - Google Analytics --><script async src=\"https://www.googletagmanager.com/gtag/js?id=G-YQFW5JRF4L\"></script><script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-YQFW5JRF4L');</script>"
+  "google_analytics": "<!-- Global site tag (gtag.js) - Google Analytics --><script async src=\"https://www.googletagmanager.com/gtag/js?id=G-YQFW5JRF4L\"></script><script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);};gtag('js', new Date());gtag('config', 'G-YQFW5JRF4L');</script>"
 }
