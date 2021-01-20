@@ -62,8 +62,12 @@ func main() {
 	}
 
 	// MarkdownをHTML化
+	htmlFlags := blackfriday.HrefTargetBlank // aタグにtarget="_blank"を付与
+	htmlFlags |= blackfriday.NoreferrerLinks // aタグにrel="noreferrer"を付与
+	htmlFlags |= blackfriday.NoopenerLinks   // aタグにrel="noopener"を付与
+	renderer := blackfriday.NewHTMLRenderer(blackfriday.HTMLRendererParameters{Flags: htmlFlags, Title: "", CSS: ""})
 	exts := blackfriday.Autolink // リンクを自動でaタグにする
-	htmlData := blackfriday.Run(md, blackfriday.WithExtensions(exts))
+	htmlData := blackfriday.Run(md, blackfriday.WithExtensions(exts), blackfriday.WithRenderer(renderer))
 
 	// 設定ファイルとHTML化したMarkdownを一つの構造体に移す
 	data := new(InputData)
